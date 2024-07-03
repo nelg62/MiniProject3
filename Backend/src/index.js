@@ -1,10 +1,27 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 require("dotenv").config();
+const postRoutes = require("./routes/postRoutes");
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
 app.use(express.json());
 
-let postRoutes = require("./routes/postRoutes");
+app.options(
+  "*",
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
 app.use("/posts", postRoutes);
 
