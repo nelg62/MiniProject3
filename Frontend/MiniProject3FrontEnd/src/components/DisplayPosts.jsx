@@ -1,5 +1,6 @@
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import { usePostContext } from "../context/PostContext";
+import PostList from "./PostList";
 
 export default function DisplayPosts() {
   const { posts } = usePostContext();
@@ -7,17 +8,9 @@ export default function DisplayPosts() {
   const postList = posts ?? [];
   return (
     <>
-      <List>
-        {postList.map((post) => {
-          return (
-            <ListItem>
-              <ListItemText>
-                <Typography>{post.content_text}</Typography>
-              </ListItemText>
-            </ListItem>
-          );
-        })}
-      </List>
+      {postList.map((post) => {
+        return <PostList post={post}></PostList>;
+      })}
     </>
   );
 }
