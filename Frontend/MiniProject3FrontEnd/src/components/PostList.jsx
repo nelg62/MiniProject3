@@ -1,4 +1,3 @@
-// src/components/PostList.jsx
 import * as React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -27,7 +26,7 @@ export default function PostList({ post }) {
         setComments(Array.isArray(dataComments) ? dataComments : []);
       } catch (error) {
         console.error("Error fetching comments", error);
-        setComments([]); // Ensure comments is an array even if there's an error
+        setComments([]);
       }
     };
     getCommentsOnPost();
