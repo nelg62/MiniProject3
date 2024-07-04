@@ -1,4 +1,3 @@
-// src/components/CreateCommentForm.jsx
 import { useState } from "react";
 
 export default function CreateCommentForm({ postId, onCommentAdded }) {
