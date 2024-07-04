@@ -7,11 +7,15 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import CreateCommentForm from "./CreateCommentForm";
-import { Box, Button, Container, Paper } from "@mui/material";
+import { Box, Button, Container, IconButton, Paper } from "@mui/material";
+import PostForm from "./PostForm";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function PostList({ post }) {
+export default function PostList({ post, onPostUpdated, onPostDeleted }) {
   const [comments, setComments] = React.useState([]);
   const [showComments, setShowComments] = React.useState(false);
+  const [isEditing, setIsEditing] = React.useState(false);
 
   React.useEffect(() => {
     const getCommentsOnPost = async () => {
@@ -21,9 +25,8 @@ export default function PostList({ post }) {
           `http://localhost:8081/posts/${post.id}/comments`
         );
         const data = await response.json();
-        let dataComments = data.data;
-        console.log("getcommenydata", dataComments);
-        setComments(Array.isArray(dataComments) ? dataComments : []);
+
+        setComments(Array.isArray(data.data) ? data.data : []);
       } catch (error) {
         console.error("Error fetching comments", error);
         setComments([]);
@@ -33,13 +36,40 @@ export default function PostList({ post }) {
   }, [post.id]);
 
   const handleCommentAdded = (newComment) => {
-    setComments((prevComments) =>
-      Array.isArray(prevComments) ? [...prevComments, newComment] : [newComment]
-    );
+    setComments((prevComments) => [...prevComments, newComment]);
   };
 
   const toggleComments = () => {
     setShowComments((prevShowComments) => !prevShowComments);
+  };
+
+  const handleDeletePost = async () => {
+    try {
+      await fetch(`http://localhost:8081/posts/${post.id}`, {
+        method: "DELETE",
+      });
+      onPostDeleted(post.id);
+    } catch (error) {
+      console.error("Error deleting post", error);
+    }
+  };
+
+  const handlePostSaved = (updatedPost) => {
+    setIsEditing(false);
+    onPostUpdated(updatedPost);
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      await fetch(`http://localhost:8081/posts/${post.id}/${commentId}`, {
+        method: "DELETE",
+      });
+      setComments((prevComments) =>
+        prevComments.filter((comment) => comment.id !== commentId)
+      );
+    } catch (error) {
+      console.error("Error deleting comment", error);
+    }
   };
 
   return (
@@ -57,57 +87,72 @@ export default function PostList({ post }) {
               flexDirection: "column",
             }}
           >
-            <Paper sx={{ width: "100%", mb: 2 }}>
+            {isEditing ? (
+              <PostForm existingPost={post} onPostSaved={handlePostSaved} />
+            ) : (
               <Paper sx={{ width: "100%", mb: 2 }}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
+                <Paper sx={{ width: "100%", mb: 2 }}>
+                  <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src="/static/images/avatar/1.jpg"
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <React.Fragment>
+                          <Typography
+                            sx={{ display: "inline" }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {post.content_text}
+                          </Typography>
+                          <br />
+                          <Button onClick={toggleComments}>
+                            {comments.length} Comments
+                          </Button>
+                          <IconButton onClick={() => setIsEditing(true)}>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton onClick={handleDeletePost}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </React.Fragment>
+                      }
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <React.Fragment>
-                        <Typography
-                          sx={{ display: "inline" }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          {post.content_text}
-                        </Typography>
-                        <br />
-                        <Button onClick={toggleComments}>
-                          {comments.length} Comments
-                        </Button>
-                      </React.Fragment>
-                    }
+                  </ListItem>
+                </Paper>
+                {showComments && (
+                  <CreateCommentForm
+                    postId={post.id}
+                    onCommentAdded={handleCommentAdded}
                   />
-                </ListItem>
+                )}
+                {showComments &&
+                  Array.isArray(comments) &&
+                  comments.map((comment) => (
+                    <Paper key={comment.id} sx={{ width: "100%", mb: 2 }}>
+                      <ListItem>
+                        <ListItemText primary={comment.content_text} />
+                        <IconButton
+                          onClick={() => handleDeleteComment(comment.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                        <ListItemAvatar>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src="/static/images/avatar/1.jpg"
+                          />
+                        </ListItemAvatar>
+                      </ListItem>
+                    </Paper>
+                  ))}
               </Paper>
-              {showComments && (
-                <CreateCommentForm
-                  postId={post.id}
-                  onCommentAdded={handleCommentAdded}
-                />
-              )}
-              {showComments &&
-                Array.isArray(comments) &&
-                comments.map((comment) => (
-                  <Paper sx={{ width: "100%", mb: 2 }}>
-                    <ListItem key={comment.id}>
-                      <ListItemText primary={comment.content_text} />
-                      <ListItemAvatar>
-                        <Avatar
-                          alt={comment.userid}
-                          src="/static/images/avatar/1.jpg"
-                        />
-                      </ListItemAvatar>
-                    </ListItem>
-                  </Paper>
-                ))}
-            </Paper>
+            )}
           </List>
         </Box>
       </Container>

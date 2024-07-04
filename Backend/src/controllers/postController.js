@@ -28,8 +28,10 @@ const updatePost = (req, res) => {
   Models.Post.update(req.body, {
     where: { id: req.params.postid },
     returning: true,
+    plain: true,
   })
     .then((data) => {
+      console.log("data", data);
       res.send({ result: 200, data: data });
     })
     .catch((err) => {
