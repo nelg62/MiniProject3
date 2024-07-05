@@ -12,7 +12,7 @@ export const PostProvider = ({ children }) => {
         const response = await fetch("http://localhost:8081/posts");
 
         const postData = await response.json();
-        console.log("postData", postData);
+        console.log("postData", postData.data);
         setPosts(postData.data);
       } catch (error) {
         console.error("Error fetching users", error);

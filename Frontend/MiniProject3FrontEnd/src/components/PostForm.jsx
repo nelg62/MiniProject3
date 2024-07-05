@@ -26,14 +26,15 @@ export default function PostForm({ existingPost, onPostSaved }) {
         body: JSON.stringify(post),
       });
 
-      const savedPost = await response.json();
-      console.log("saved post:", savedPost.data);
-      onPostSaved(
-        existingPost
-          ? { ...savedPost.data, id: existingPost.id }
-          : savedPost.data
-      );
-      setPost(initialPostData);
+      const result = await response.json();
+      console.log("Response result:", result);
+      if (result && result.data) {
+        console.log("Saved post:", result.data);
+        onPostSaved(result.data);
+        setPost(initialPostData);
+      } else {
+        console.error("Error saving post", result.error);
+      }
     } catch (error) {
       console.error("Error saving post", error);
     }

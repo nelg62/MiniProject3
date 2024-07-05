@@ -19,6 +19,11 @@ export default function BlogPage() {
   }, []);
 
   const handlePostSaved = (savedPost) => {
+    if (!savedPost) {
+      console.error("Saved post is undefined");
+      return;
+    }
+
     console.log("Updated post in blogpage:", savedPost);
     setPosts((prevPosts) => {
       const index = prevPosts.findIndex((post) => post.id === savedPost.id);
