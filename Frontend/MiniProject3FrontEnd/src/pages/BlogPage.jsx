@@ -3,8 +3,6 @@ import DisplayPosts from "../components/DisplayPosts";
 import PostForm from "../components/PostForm";
 
 export default function BlogPage() {
-<<<<<<< HEAD
-=======
   // State to store posts
   const [posts, setPosts] = useState([]);
 
@@ -54,7 +52,6 @@ export default function BlogPage() {
     );
   };
 
->>>>>>> US-4---Epic-1---Frontend---Centre-Panel---Update/Delete-Posts-&-Comments
   return (
     <div className="BlogApp">
       <h1>Welcome to the BlogPage</h1>
