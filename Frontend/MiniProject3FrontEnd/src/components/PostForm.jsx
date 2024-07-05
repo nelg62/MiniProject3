@@ -1,51 +1,57 @@
-import {
-  Avatar,
-  Button,
-  Container,
-  IconButton,
-  TextField,
-} from "@mui/material";
+import { Avatar, Button, Container, TextField } from "@mui/material";
 import InputFileUpload from "./FileUploadButton";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { useState } from "react";
 
-export default function PostForm() {
-  const initialPostData = {
+export default function PostForm({ existingPost, onPostSaved }) {
+  //  set initial post data with existingPost data if it is available, otherwise set to the default values below
+  const initialPostData = existingPost || {
     userid: 1,
     content_text: "",
     content_imageURL: "",
   };
 
+  // State to manage post data
   const [post, setPost] = useState(initialPostData);
 
+  // Handle submiting form
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("handlesubmit event", event);
-    console.log("handlesubmit post", post);
 
-    const createPost = async (post) => {
-      try {
-        const response = await fetch("http://localhost:8081/posts/create", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(post),
-        });
+    // set URL and method based on if the form is being used for updating or creating
+    const url = existingPost
+      ? `http://localhost:8081/posts/${existingPost.id}`
+      : "http://localhost:8081/posts/create";
+    const method = existingPost ? "PUT" : "POST";
 
-        const newPost = await response.json();
+    try {
+      // Send post data to backend
+      const response = await fetch(url, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(post),
+      });
 
-        setPost((prevPosts) => [prevPosts, newPost]);
-      } catch (error) {
-        console.error("Error adding Post", error);
+      const result = await response.json();
+      console.log("Response result:", result);
+
+      // Handle response
+      if (result && result.data) {
+        console.log("Saved post:", result.data);
+        // Update or create post state in blogPage
+        onPostSaved(result.data);
+        // Reset form after saveing data
+        setPost(initialPostData);
+      } else {
+        console.error("Error saving post", result.error);
       }
-    };
-    await createPost(post);
-
-    setPost(initialPostData);
+    } catch (error) {
+      console.error("Error saving post", error);
+    }
   };
 
+  // Handle input change from form
   const handleChange = (event) => {
-    console.log("handlechange name", event.target.name);
-    console.log("handlechange value", event.target.value);
     setPost({ ...post, [event.target.name]: event.target.value });
   };
 
@@ -53,7 +59,9 @@ export default function PostForm() {
     <Container sx={{ display: "flex", justifyContent: "center" }}>
       <form onSubmit={handleSubmit}>
         <div style={{ display: "flex" }}>
+          {/* Avatar for user */}
           <Avatar sx={{ height: "50px", width: "50px" }}></Avatar>
+          {/* Text field for post content */}
           <TextField
             id="contenttext"
             name="content_text"
@@ -61,7 +69,9 @@ export default function PostForm() {
             value={post.content_text}
             onChange={handleChange}
           ></TextField>
+          {/* File upload button */}
           <InputFileUpload />
+          {/* Submit button */}
           <Button variant="contained" type="submit">
             <ForwardIcon />
           </Button>

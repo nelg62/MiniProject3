@@ -7,7 +7,6 @@ import { PostProvider } from "./context/PostContext";
 import DisplayPosts from "./components/DisplayPosts";
 
 function App() {
-  console.log("asdfasadsf");
   return (
     <>
       <MyThemeProvider>

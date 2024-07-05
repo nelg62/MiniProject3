@@ -1,15 +1,18 @@
-import { usePostContext } from "../context/PostContext";
 import PostList from "./PostList";
 
-export default function DisplayPosts() {
-  const { posts } = usePostContext();
-  console.log("afasfaaffas", posts);
-  const postList = posts ?? [];
+// Display a list of posts
+export default function DisplayPosts({ posts, onPostUpdated, onPostDeleted }) {
   return (
-    <>
-      {postList.map((post) => {
-        return <PostList key={post.id} post={post}></PostList>;
-      })}
-    </>
+    <div>
+      {/* Map through posts array and render PostList component for each post */}
+      {posts.map((post) => (
+        <PostList
+          key={post.id}
+          post={post}
+          onPostUpdated={onPostUpdated}
+          onPostDeleted={onPostDeleted}
+        />
+      ))}
+    </div>
   );
 }

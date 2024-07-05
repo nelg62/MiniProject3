@@ -28,12 +28,19 @@ const updatePost = (req, res) => {
   Models.Post.update(req.body, {
     where: { id: req.params.postid },
     returning: true,
+    plain: true,
   })
-    .then((data) => {
-      res.send({ result: 200, data: data });
+    .then(async (result) => {
+      const affectedRows = result[1];
+      if (affectedRows === 1) {
+        const updatedPost = await Models.Post.findByPk(req.params.postid);
+        res.send({ result: 200, data: updatedPost });
+      } else {
+        res.send({ result: 404, error: "Post not found" });
+      }
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Error updating post:", err);
       res.send({ result: 500, error: err.message });
     });
 };
