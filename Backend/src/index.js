@@ -3,6 +3,8 @@ const cors = require("cors");
 const app = express();
 require("dotenv").config();
 
+let dbConnect = require("./dbConnect");
+
 const postRoutes = require("./routes/postRoutes");
 const likeRoutes = require("./routes/likeRoutes");
 const userRoutes = require("./routes/userRoutes");
