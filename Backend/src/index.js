@@ -1,16 +1,29 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 require("dotenv").config();
+const postRoutes = require("./routes/postRoutes");
 
-let dbConnect = require("./dbConnect");
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
 app.use(express.json());
 
 app.use('/', express.static('public'))
 
-let postRoutes = require("./routes/postRoutes");
-let likeRoutes = require("./routes/likeRoutes");
-let userRoutes = require("./routes/userRoutes");
+app.options(
+  "*",
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
 app.use("/posts", postRoutes);
 app.use("/likes", likeRoutes);
