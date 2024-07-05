@@ -14,7 +14,7 @@ const getUser = (req, res) => {
     .catch((err) => {console.log(err); res.send({ result: 500, error: err.message }); });
 };
 
-const getUsers = (res) => {
+const getUsers = (req, res) => {
   Models.User.findAll({})
     .then((data) => {res.send({ result: 200, data: data }); })
     .catch((err) => {console.log(err); res.send({ result: 500, error: err.message }); });

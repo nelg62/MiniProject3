@@ -14,8 +14,6 @@ Like.init({
 
  commentId: { type: DataTypes.STRING, allowNull: true, required: false,  },
 
- createDateTime: { type: DataTypes.STRING, allowNull: false, required: true }
-
 },
 
  {

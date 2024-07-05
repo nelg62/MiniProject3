@@ -2,14 +2,8 @@
 
 const Models = require("../models");
 
-const createLikeOnPost = (req, res) => {
-  Models.Like.create({...req.body,postid: req.params.postid, })
-    .then((data) => {res.send({ result: 200, data: data }); })
-    .catch((err) => {console.log(err); res.send({ result: 500, error: err.message }); });
-};
-
-const createLikeOnComment = (req, res) => {
-  Models.Like.create({...req.body,commentid: req.params.commentid, })
+const createLike = (req, res) => {
+  Models.Like.create(req.body)
     .then((data) => {res.send({ result: 200, data: data }); })
     .catch((err) => {console.log(err); res.send({ result: 500, error: err.message }); });
 };
@@ -45,8 +39,7 @@ const deleteAllLikesOnComment = (req, res) => {
 };
 
 module.exports = {
-  createLikeOnPost,
-  createLikeOnComment,
+  createLike,
   getAllLikesOnPost,
   getAllLikesOnComment,
   deleteLike,
