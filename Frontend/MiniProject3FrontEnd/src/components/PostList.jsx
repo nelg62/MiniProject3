@@ -11,6 +11,8 @@ import {
   Box,
   Paper,
   IconButton,
+  Card,
+  CardContent,
 } from "@mui/material";
 import {
   Edit as EditIcon,
@@ -134,51 +136,55 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
           ) : (
             <Paper sx={{ width: "100%", mb: 2 }}>
               <Paper sx={{ width: "100%", mb: 2 }}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
-                    />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <>
-                        <Typography
-                          sx={{ display: "inline" }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          {post.content_text}
-                        </Typography>
-                        <br />
-                        <Button onClick={toggleComments}>
-                          {comments.length} Comments
-                        </Button>
-                        <IconButton onClick={() => setIsEditing(true)}>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton onClick={handleDeletePost}>
-                          <DeleteIcon />
-                        </IconButton>
-                        <IconButton onClick={handleToggleLike}>
-                          {likePost ? (
-                            <>
-                              <Typography>{likeAmount}</Typography>
-                              <ThumbUpAltIcon />
-                            </>
-                          ) : (
-                            <>
-                              <Typography>{likeAmount}</Typography>
-                              <ThumbUpOffAltIcon />
-                            </>
-                          )}
-                        </IconButton>
-                      </>
-                    }
-                  />
-                </ListItem>
+                <Card>
+                  <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src="/static/images/avatar/1.jpg"
+                      />
+                    </ListItemAvatar>
+                    <CardContent>
+                      <ListItemText
+                        primary={
+                          <>
+                            <Typography
+                              sx={{ display: "inline" }}
+                              component="span"
+                              variant="body1"
+                              color="text.primary"
+                            >
+                              {post.content_text}
+                            </Typography>
+                            <br />
+                            <Button onClick={toggleComments}>
+                              {comments.length} Comments
+                            </Button>
+                            <IconButton onClick={() => setIsEditing(true)}>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton onClick={handleDeletePost}>
+                              <DeleteIcon />
+                            </IconButton>
+                            <IconButton onClick={handleToggleLike}>
+                              {likePost ? (
+                                <>
+                                  <Typography>{likeAmount}</Typography>
+                                  <ThumbUpAltIcon />
+                                </>
+                              ) : (
+                                <>
+                                  <Typography>{likeAmount}</Typography>
+                                  <ThumbUpOffAltIcon />
+                                </>
+                              )}
+                            </IconButton>
+                          </>
+                        }
+                      />
+                    </CardContent>
+                  </ListItem>
+                </Card>
               </Paper>
               {showComments && (
                 <CreateCommentForm

@@ -1,17 +1,16 @@
-import { useState } from "react";
 import "./App.css";
 import BlogRoutes from "./routes/BlogRoutes";
 import NavBar from "./components/NavBar";
 import MyThemeProvider from "./context/ThemeContext";
 import { PostProvider } from "./context/PostContext";
-import DisplayPosts from "./components/DisplayPosts";
+import PersistentDrawerLeft from "./components/Drawer";
 
 function App() {
   return (
     <>
       <MyThemeProvider>
         <PostProvider>
-          <NavBar></NavBar>
+          <PersistentDrawerLeft />
           <BlogRoutes />
         </PostProvider>
       </MyThemeProvider>
