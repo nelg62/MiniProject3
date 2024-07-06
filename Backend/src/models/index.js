@@ -9,6 +9,14 @@ async function init() {
   await Comment.sync();
   await Like.sync();
   await User.sync();
+
+  User.hasMany(Post, { foreignKey: "userid" });
+  Post.belongsTo(User, { foreignKey: "userid" });
+
+  Post.hasMany(Comment, { foreignKey: "postid" });
+  Comment.belongsTo(Post, { foreignKey: "postid" });
+
+  Comment.belongsTo(User, { foreignKey: "userid" });
 }
 
 init();

@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 const Controllers = require("../controllers");
 
-
 router.post("/createLike", (req, res) => {
   Controllers.likeController.createLike(req, res);
+});
+
+router.post("/toggleLike", (req, res) => {
+  Controllers.likeController.toggleLike(req, res);
 });
 
 router.get("/getAllLikesonPost/:postid", (req, res) => {
