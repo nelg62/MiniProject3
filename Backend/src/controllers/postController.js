@@ -2,6 +2,7 @@
 
 const Models = require("../models");
 
+// Get all posts
 const getPosts = (req, res) => {
   Models.Post.findAll({})
     .then((data) => {
@@ -13,6 +14,7 @@ const getPosts = (req, res) => {
     });
 };
 
+// Create a new post
 const createPost = (req, res) => {
   Models.Post.create(req.body)
     .then((data) => {
@@ -24,6 +26,7 @@ const createPost = (req, res) => {
     });
 };
 
+// Update an existing post
 const updatePost = (req, res) => {
   Models.Post.update(req.body, {
     where: { id: req.params.postid },
@@ -45,6 +48,7 @@ const updatePost = (req, res) => {
     });
 };
 
+// Delete a post
 const deletePost = (req, res) => {
   Models.Post.destroy({ where: { id: req.params.postid } })
     .then((data) => {
@@ -56,6 +60,7 @@ const deletePost = (req, res) => {
     });
 };
 
+// Get all comments for a specific post
 const getCommentsOnPost = (req, res) => {
   Models.Comment.findAll({
     where: { postid: req.params.postid },
@@ -67,7 +72,8 @@ const getCommentsOnPost = (req, res) => {
     });
 };
 
-const createComment = (req, res) => {
+// Create a new comment on a specific post
+function createComment(req, res) {
   Models.Comment.create({
     ...req.body,
     postid: req.params.postid,
@@ -77,8 +83,9 @@ const createComment = (req, res) => {
       console.log(err);
       res.send({ result: 500, error: err.message });
     });
-};
+}
 
+// Update an existing comment
 const updateComment = (req, res) => {
   Models.Comment.update(req.body, {
     where: { id: req.params.commentid },
@@ -93,6 +100,7 @@ const updateComment = (req, res) => {
     });
 };
 
+// Delete a comment
 const deleteComment = (req, res) => {
   Models.Comment.destroy({ where: { id: req.params.commentid } })
     .then((data) => {

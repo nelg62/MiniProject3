@@ -1,6 +1,7 @@
 "use strict";
 const { Sequelize } = require("sequelize");
 
+// Sequelize to database using environment variable credentials
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -10,8 +11,11 @@ const sequelize = new Sequelize(
     dialect: "mysql",
   }
 );
+
+// Function to connect to MySQL database
 const connectMysql = async () => {
   try {
+    // Authenticate to database
     await sequelize.authenticate();
     console.log(`Successful connection to MySQL Database
 ${process.env.DB_NAME}`);

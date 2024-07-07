@@ -5,10 +5,12 @@ require("dotenv").config();
 
 let dbConnect = require("./dbConnect");
 
+// Importing route models
 const postRoutes = require("./routes/postRoutes");
 const likeRoutes = require("./routes/likeRoutes");
 const userRoutes = require("./routes/userRoutes");
 
+// Cors config to allow frount and backend connections
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -19,7 +21,7 @@ app.use(
 
 app.use(express.json());
 
-app.use('/', express.static('public'))
+app.use("/", express.static("public"));
 
 app.options(
   "*",
@@ -30,6 +32,7 @@ app.options(
   })
 );
 
+// handle routes
 app.use("/posts", postRoutes);
 app.use("/likes", likeRoutes);
 app.use("/users", userRoutes);
@@ -38,8 +41,10 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Mysql application." });
 });
 
+// server port
 const PORT = process.env.PORT || 8080;
 
+// start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

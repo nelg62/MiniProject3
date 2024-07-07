@@ -30,6 +30,7 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
   const [likePost, setLikePost] = useState(false);
   const [likeAmount, setLikeAmount] = useState(0);
 
+  // Fetch comments on post when post id changes
   useEffect(() => {
     const getCommentsOnPost = async () => {
       try {
@@ -46,6 +47,7 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
     getCommentsOnPost();
   }, [post.id]);
 
+  // Fetch likes on post when post ID changes
   useEffect(() => {
     const getLikesOnPost = async () => {
       try {
@@ -54,7 +56,7 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
         );
         const data = await response.json();
         setLikeAmount(Array.isArray(data.data) ? data.data.length : 0);
-        const userLiked = data.data.some((like) => like.userId === 1); // Replace 1 with the current userId
+        const userLiked = data.data.some((like) => like.userId === 1);
         setLikePost(userLiked);
       } catch (error) {
         console.error("Error fetching likes on post", error);
@@ -63,14 +65,17 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
     getLikesOnPost();
   }, [post.id]);
 
+  // Handle adding a new comment to the state
   const handleCommentAdded = (newComment) => {
     setComments((prevComments) => [...prevComments, newComment]);
   };
 
+  // Toggle displaying comments
   const toggleComments = () => {
     setShowComments((prevShowComments) => !prevShowComments);
   };
 
+  // Handle deleting a post
   const handleDeletePost = async () => {
     try {
       await fetch(`http://localhost:8081/posts/${post.id}`, {
@@ -82,11 +87,13 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
     }
   };
 
+  // Handle saving an updated post
   const handlePostSaved = (updatedPost) => {
     setIsEditing(false);
     onPostUpdated(updatedPost);
   };
 
+  // Handle deleting a comment
   const handleDeleteComment = async (commentId) => {
     try {
       await fetch(`http://localhost:8081/posts/${post.id}/${commentId}`, {
@@ -100,12 +107,13 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
     }
   };
 
+  // Handle toggling a like on a post
   const handleToggleLike = async () => {
     try {
       const response = await fetch(`http://localhost:8081/likes/toggleLike`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: 1, postId: post.id }), // Replace 1 with the current userId
+        body: JSON.stringify({ userId: 1, postId: post.id }),
       });
       const result = await response.json();
       if (result.result === 200) {
@@ -132,6 +140,7 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
           }}
         >
           {isEditing ? (
+            // Show post form to edit
             <PostForm existingPost={post} onPostSaved={handlePostSaved} />
           ) : (
             <Paper sx={{ width: "100%", mb: 2 }}>
@@ -186,12 +195,14 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
                   </ListItem>
                 </Card>
               </Paper>
+              {/* Display comment form if showComment is true */}
               {showComments && (
                 <CreateCommentForm
                   postId={post.id}
                   onCommentAdded={handleCommentAdded}
                 />
               )}
+              {/* Display comments if showComments is true */}
               {showComments &&
                 comments.map((comment) => (
                   <Paper key={comment.id} sx={{ width: "100%", mb: 2 }}>

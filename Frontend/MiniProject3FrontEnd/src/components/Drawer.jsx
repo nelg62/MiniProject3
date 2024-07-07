@@ -123,6 +123,7 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </DrawerHeader>
         <Divider />
+        {/* Nav links to pages  */}
         <List>
           <ListItem>
             <NavLink to="/">Home</NavLink>

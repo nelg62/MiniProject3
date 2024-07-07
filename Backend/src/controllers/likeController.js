@@ -2,6 +2,7 @@
 
 const Models = require("../models");
 
+// Create a new like
 const createLike = (req, res) => {
   Models.Like.create(req.body)
     .then((data) => {
@@ -13,6 +14,7 @@ const createLike = (req, res) => {
     });
 };
 
+// Get all likes for a specific post
 const getAllLikesOnPost = (req, res) => {
   Models.Like.findAll({ where: { postid: req.params.postid } })
     .then((data) => {
@@ -24,6 +26,7 @@ const getAllLikesOnPost = (req, res) => {
     });
 };
 
+// Get all likes for a specific comment
 const getAllLikesOnComment = (req, res) => {
   Models.Like.findAll({ where: { commentid: req.params.commentid } })
     .then((data) => {
@@ -35,6 +38,7 @@ const getAllLikesOnComment = (req, res) => {
     });
 };
 
+// Delete a like by its ID
 const deleteLike = (req, res) => {
   Models.Like.destroy({ where: { id: req.params.likeid } })
     .then((data) => res.send({ result: 200, data: data }))
@@ -44,6 +48,7 @@ const deleteLike = (req, res) => {
     });
 };
 
+// Delete all likes for a specific post
 const deleteAllLikesOnPost = (req, res) => {
   Models.Like.destroy({ where: { postid: req.params.postid } })
     .then((data) => res.send({ result: 200, data: data }))
@@ -53,6 +58,7 @@ const deleteAllLikesOnPost = (req, res) => {
     });
 };
 
+// Delete all likes for a specific comment
 const deleteAllLikesOnComment = (req, res) => {
   Models.Like.destroy({ where: { commentid: req.params.commentid } })
     .then((data) => res.send({ result: 200, data: data }))
@@ -62,6 +68,7 @@ const deleteAllLikesOnComment = (req, res) => {
     });
 };
 
+// Toggle like on a post
 const toggleLike = async (req, res) => {
   try {
     const { userId, postId } = req.body;
