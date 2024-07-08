@@ -12,7 +12,7 @@ function BlogRoutes(props) {
   return (
     <Routes>
       {/* index matches on default/home URL: / */}
-      <Route index element={<Homepage {...props} />} />
+      <Route index element={<BlogPage {...props} />} />
 
       {/* nested routes, matches on /dash/messages etc */}
       <Route path="dash" element={<DashboardPage {...props} />}>
@@ -22,7 +22,7 @@ function BlogRoutes(props) {
 
       <Route path="/about" element={<AboutPage {...props} />} />
 
-      <Route path="/BlogApp" element={<BlogPage {...props} />} />
+      <Route path="/BlogApp" element={<Homepage {...props} />} />
 
       {/* special route to handle if none of the above match */}
       <Route path="*" element={<PageNotFound />} />
