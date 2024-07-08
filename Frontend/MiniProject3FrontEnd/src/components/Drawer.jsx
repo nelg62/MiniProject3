@@ -94,9 +94,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
+          <Typography variant="h6" noWrap component="div"></Typography>
           <Avatar sx={{ display: "flex", marginLeft: "auto" }} />
         </Toolbar>
       </AppBar>
