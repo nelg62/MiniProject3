@@ -19,7 +19,7 @@ export default function CreateCommentForm({ postId, onCommentAdded }) {
     try {
       // Create a new comment
       const response = await fetch(
-        `http://localhost:8081/posts/${postId}/comments`,
+        `https://miniproject3-naib.onrender.com/${postId}/comments`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

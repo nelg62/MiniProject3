@@ -11,7 +11,9 @@ export default function BlogPage() {
     const fetchPosts = async () => {
       try {
         // Fetch posts from backend using getPosts controller function / route
-        const response = await fetch("http://localhost:8081/posts");
+        const response = await fetch(
+          "https://miniproject3-naib.onrender.com/posts"
+        );
         const data = await response.json();
         // Set posts in state
         setPosts(data.data || []);

@@ -20,8 +20,8 @@ export default function PostForm({ existingPost, onPostSaved }) {
 
     // set URL and method based on if the form is being used for updating or creating
     const url = existingPost
-      ? `http://localhost:8081/posts/${existingPost.id}`
-      : "http://localhost:8081/posts/create";
+      ? `https://miniproject3-naib.onrender.com/posts/${existingPost.id}`
+      : "https://miniproject3-naib.onrender.com/posts/create";
     const method = existingPost ? "PUT" : "POST";
 
     try {

@@ -35,7 +35,7 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
     const getCommentsOnPost = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8081/posts/${post.id}/comments`
+          `https://miniproject3-naib.onrender.com/posts/${post.id}/comments`
         );
         const data = await response.json();
         setComments(Array.isArray(data.data) ? data.data : []);
@@ -52,7 +52,7 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
     const getLikesOnPost = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8081/likes/getAllLikesonPost/${post.id}`
+          `https://miniproject3-naib.onrender.com/likes/getAllLikesonPost/${post.id}`
         );
         const data = await response.json();
         setLikeAmount(Array.isArray(data.data) ? data.data.length : 0);
@@ -78,7 +78,7 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
   // Handle deleting a post
   const handleDeletePost = async () => {
     try {
-      await fetch(`http://localhost:8081/posts/${post.id}`, {
+      await fetch(`https://miniproject3-naib.onrender.com/posts/${post.id}`, {
         method: "DELETE",
       });
       onPostDeleted(post.id);
@@ -96,9 +96,12 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
   // Handle deleting a comment
   const handleDeleteComment = async (commentId) => {
     try {
-      await fetch(`http://localhost:8081/posts/${post.id}/${commentId}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://miniproject3-naib.onrender.com/posts/${post.id}/${commentId}`,
+        {
+          method: "DELETE",
+        }
+      );
       setComments((prevComments) =>
         prevComments.filter((comment) => comment.id !== commentId)
       );
@@ -110,11 +113,14 @@ export default function PostList({ post, onPostUpdated, onPostDeleted }) {
   // Handle toggling a like on a post
   const handleToggleLike = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/likes/toggleLike`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: 1, postId: post.id }),
-      });
+      const response = await fetch(
+        `https://miniproject3-naib.onrender.com/likes/toggleLike`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: 1, postId: post.id }),
+        }
+      );
       const result = await response.json();
       if (result.result === 200) {
         setLikeAmount(result.data.length);

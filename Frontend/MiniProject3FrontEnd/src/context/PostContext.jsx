@@ -9,7 +9,9 @@ export const PostProvider = ({ children }) => {
     const getPosts = async () => {
       console.log("getPosts");
       try {
-        const response = await fetch("http://localhost:8081/posts");
+        const response = await fetch(
+          "https://miniproject3-naib.onrender.com/posts"
+        );
 
         const postData = await response.json();
         console.log("postData", postData.data);
