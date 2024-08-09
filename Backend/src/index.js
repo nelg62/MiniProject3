@@ -13,7 +13,7 @@ const userRoutes = require("./routes/userRoutes");
 // Cors config to allow frount and backend connections
 app.use(
   cors({
-    origin: "https://master--miniproject3glenharding.netlify.app/",
+    origin: "https://master--miniproject3glenharding.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
@@ -26,7 +26,7 @@ app.use("/", express.static("public"));
 app.options(
   "*",
   cors({
-    origin: "https://master--miniproject3glenharding.netlify.app/",
+    origin: "https://master--miniproject3glenharding.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
