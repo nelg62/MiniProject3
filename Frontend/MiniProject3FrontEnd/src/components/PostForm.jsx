@@ -30,6 +30,7 @@ export default function PostForm({ existingPost, onPostSaved }) {
         method: method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(post),
+        mode: "cors",
       });
 
       const result = await response.json();
