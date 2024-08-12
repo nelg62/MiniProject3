@@ -10,7 +10,14 @@ export const PostProvider = ({ children }) => {
       console.log("getPosts");
       try {
         const response = await fetch(
-          "https://miniproject3-naib.onrender.com/posts"
+          "https://miniproject3-naib.onrender.com/posts",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            mode: "cors",
+          }
         );
 
         const postData = await response.json();

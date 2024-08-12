@@ -24,6 +24,7 @@ export default function CreateCommentForm({ postId, onCommentAdded }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(comment),
+          mode: "cors",
         }
       );
 
