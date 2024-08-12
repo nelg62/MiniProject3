@@ -23,14 +23,14 @@ app.use(express.json());
 
 app.use("/", express.static("public"));
 
-// app.options(
-//   "*",
-//   cors({
-//     origin: "https://master--miniproject3glenharding.netlify.app",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type"],
-//   })
-// );
+app.options(
+  "*",
+  cors({
+    origin: "https://master--miniproject3glenharding.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // handle routes
 app.use("/posts", postRoutes);
