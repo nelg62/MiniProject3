@@ -12,7 +12,12 @@ export default function BlogPage() {
       try {
         // Fetch posts from backend using getPosts controller function / route
         const response = await fetch(
-          "https://miniproject3-naib.onrender.com/posts"
+          "https://miniproject3-naib.onrender.com/posts",
+          {
+            method: "GET",
+            headers: { "content-Type": "application/json" },
+            mode: "cors",
+          }
         );
         const data = await response.json();
         // Set posts in state
