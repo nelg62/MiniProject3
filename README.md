@@ -198,10 +198,14 @@ _For more examples, please refer to the [Documentation](https://example.com)_ --
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
+- [x] Add froundend to cloud (Netlify)
+- [x] Add Backend to cloud (Render)
+- [ ] update ui and make with tailwidn to make more responsive
+- [ ] add login feature
+- [ ] fix liking comments
+- [ ] add images
+- [ ] real time chat app
+- [ ] support app feature
 
 See the [open issues](https://github.com/nelg62/MiniProject3/issues) for a full list of proposed features (and known issues).
 
