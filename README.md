@@ -8,11 +8,11 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
-<br />
+<!-- <br />
 <div align="center">
   <a href="https://github.com/nelg62/MiniProject3">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  </a> -->
 
 <h3 align="center">Mini Project 3 Blog App</h3>
 
@@ -74,7 +74,7 @@ This project showcases a full CRUD (Create, Read, Update, Delete) application fo
 <li>Responsive design with Material-UI (future migration to Tailwind CSS).</li>
 </ul>
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -234,9 +234,9 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- LICENSE -->
 
-## License
+<!-- ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.txt` for more information. -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -244,7 +244,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - glen.harding.nz@gmail.com
+Glen Harding - glen.harding.nz@gmail.com
 
 Project Link: [https://github.com/nelg62/MiniProject3](https://github.com/nelg62/MiniProject3)
 
@@ -275,7 +275,7 @@ Project Link: [https://github.com/nelg62/MiniProject3](https://github.com/nelg62
 [license-url]: https://github.com/nelg62/MiniProject3/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/glen-harding-5a1317114
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: Frontend/MiniProject3FrontEnd/src/assets/MiniProject3mainpage.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
